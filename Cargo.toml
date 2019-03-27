@@ -1,0 +1,7 @@
+[package]
+name = "c_os"
+version = "0.1.0"
+authors = ["Christoph Wottawa <christoph.wottawa@me.com>"]
+edition = "2018"
+
+[dependencies]
