@@ -21,3 +21,15 @@ Then build(cross compile) the kernel:
 ````
 cargo xbuild --target x86_64-c_os.json
 ````
+
+To actually make a bootable kernel-image you need to install "bootimage" first:
+
+```
+cargo install bootimage --version "^0.5.0"
+````
+
+after this, create the bootimage with:
+
+```
+bootimage build
+````
