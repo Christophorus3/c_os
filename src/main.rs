@@ -1,6 +1,8 @@
 #![no_std]
 #![no_main]
 
+mod vga_buffer;
+
 use core::panic::PanicInfo;
 // handle panics
 #[panic_handler]
@@ -18,10 +20,14 @@ pub extern "C" fn _start() -> ! {
 
     for (i, &byte) in HELLO.iter().enumerate() {
         unsafe {
+            //set the letter/byte
             *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
+            //set the color (0xb = light cyan)
+            *vga_buffer.offset(i as isize * 2 + 1) = 0xf;
         }
     }
+
+    vga_buffer::print_something();
 
     loop {}
 }

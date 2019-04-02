@@ -12,6 +12,7 @@ panic = "abort"
 
 [dependencies]
 bootloader = "0.4.0"
+volatile = "0.2.3"
 
 [package.metadata.bootimage]
 default-target = "x86_64-c_os.json"
