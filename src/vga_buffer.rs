@@ -1,4 +1,5 @@
 use volatile::Volatile;
+use core::fmt;
 
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -53,6 +54,15 @@ pub struct Writer {
     buffer: &'static mut Buffer,
 }
 
+// implement write_str for use of write! macros
+
+impl fmt::Write for Writer {
+    fn write_str(&mut self, s: &str) -> fmt::Result {
+        self.write_string(s);
+        Ok(())
+    }
+}
+
 impl Writer {
     pub fn write_string(&mut self, s: &str) {
         for byte in s.bytes() {
@@ -92,6 +102,8 @@ impl Writer {
 }
 
 pub fn print_something() {
+    use core::fmt::Write;
+    
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::Yellow, Color::Black),
@@ -101,4 +113,5 @@ pub fn print_something() {
     writer.write_byte(b'H');
     writer.write_string("ello ");
     writer.write_string("Wörld!\nTest");
+    write!(writer, "The numbers are {} and {}", 42, 1.0/3.0).unwrap();
 }
