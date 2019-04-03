@@ -14,6 +14,8 @@ panic = "abort"
 bootloader = "0.4.0"
 volatile = "0.2.3"
 spin = "0.4.9"
+uart_16550 = "0.1.0"
+x86_64 = "0.5.2"
 
 [dev-dependencies]
 array-init = "0.0.3"
@@ -27,4 +29,9 @@ default-target = "x86_64-c_os.json"
 
 [package.metadata.scripts]
 build = "bootimage build"
-qemu = "qemu-system-x86_64 -drive format=raw,file=target/x86_64-c_os/debug/bootimage-c_os.bin"
+qemu = "qemu-system-x86_64 -drive format=raw,file=target/x86_64-c_os/debug/bootimage-c_os.bin -serial mon:stdio"
+run = "bootimage run -- -serial mon:stdio -device isa-debug-exit,iobase=0xf4,iosize=0x04 -display none"
+test = "bootimage run --bin test-basic-boot -- -serial mon:stdio -device isa-debug-exit,iobase=0xf4,iosize=0x04 -display none"
+
+[features]
+integration-test = []

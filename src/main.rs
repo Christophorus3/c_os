@@ -3,9 +3,9 @@
 // don't use no_main for testing
 #![cfg_attr(not(test), no_main)]
 
-mod vga_buffer;
-
 use core::panic::PanicInfo;
+use c_os::println;
+
 // handle panics
 // don't compile for testing
 #[cfg(not(test))]
@@ -21,6 +21,7 @@ fn panic(info: &PanicInfo) -> ! {
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     println!("Hello World from {}", "C_OS");
-    panic!("The kernel paniced");
+    /* panic!("The kernel paniced"); */
+
     loop {}
 }
